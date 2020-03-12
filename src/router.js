@@ -10,9 +10,10 @@ Vue.use(Router);
 const router = new Router({
   mode: "history",
   base: process.env.BASE_URL,
-  routes:[
+  routes: [
     {
-      path:"/", component: Lobby
+      path: "/",
+      component: Lobby
     }
   ]
 });
