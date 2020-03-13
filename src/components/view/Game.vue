@@ -3,10 +3,11 @@
     <div v-if="!organizer" class="row">
       <div class="twelve columns">
         <div class="u-pull-right">
-          <input name="organizer-password" type="password" />
-          <button name="organizer-authorizer" @click="organizer = true">
+          <input name="organizer-password" type="password" v-model="password" />
+          <button name="organizer-authorizer" @click="suOrganizerHandler">
             出題者モード
           </button>
+          <button @click="organizer = true">CHEAT</button>
         </div>
         <h5>{{ name }}</h5>
       </div>
@@ -61,6 +62,12 @@ export default {
         .catch(e => {
           console.error(e);
         });
+    },
+    suOrganizerHandler() {
+      if (this.game.password !== this.password) {
+        return false;
+      }
+      this.organizer = true;
     }
   },
   computed: {
@@ -72,6 +79,7 @@ export default {
     return {
       gameId: null,
       game: null,
+      password: null,
       organizer: false
     };
   }

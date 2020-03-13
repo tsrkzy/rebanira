@@ -34,7 +34,7 @@
         />
       </div>
       <div class="twelve columns">
-        <h6>合い言葉</h6>
+        <h6>出題者用パスワード</h6>
         <input
           type="text"
           name="game-situation"
