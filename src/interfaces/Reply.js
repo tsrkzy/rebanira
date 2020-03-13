@@ -4,6 +4,7 @@ import { dateFormat } from "../util/util";
 export class Reply {
   text = "";
   type = "";
+  datetime = "";
   constructor(doc) {
     if (!doc) {
       return this;
@@ -15,9 +16,10 @@ export class Reply {
    * @param data {{author:String,text:String, datetime:Timestamp,reply:Object}}
    */
   initData(data) {
+    if (!data) return this;
     this.text = data.text;
     this.type = data.type;
-    this.datetime = data.datetime;
+    this.datetime = data.datetime || firebase.firestore.Timestamp.now();
     return this;
   }
 

@@ -13,10 +13,15 @@
     </div>
 
     <!-- 回答者モード -->
-    <questioner-view v-if="!organizer" :game="game"></questioner-view>
+    <questioner-view
+      ref="qView"
+      v-if="!organizer"
+      v-model="game"
+      @add-question="addQuestionHandler"
+    ></questioner-view>
 
     <!-- 出題者モード-->
-    <organizer-view v-if="organizer" :game="game"></organizer-view>
+    <organizer-view ref="oView" v-if="organizer" :game="game"></organizer-view>
   </div>
 </template>
 
@@ -40,6 +45,23 @@ export default {
       .then(doc => {
         this.game = new Game(doc);
       });
+  },
+  methods: {
+    /**
+     * @param game {Game}
+     */
+    addQuestionHandler(game) {
+      const gameRef = Game.getRef();
+      gameRef
+        .doc(this.gameId)
+        .set(game.toObject())
+        .then(() => {
+          this.$refs.qView.flush();
+        })
+        .catch(e => {
+          console.error(e);
+        });
+    }
   },
   computed: {
     name() {

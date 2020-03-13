@@ -7,12 +7,17 @@
       <p>{{ game.answer }}</p>
     </div>
     <div class="twelve columns">
-      <textarea name="question-text"></textarea>
+      <textarea name="question-text" v-model="text"></textarea>
     </div>
     <div class="twelve columns u-pull-right">
       <div class="u-pull-right">
-        <input type="text" name="question-author" placeholder="名前" />
-        <button>質問する</button>
+        <input
+          type="text"
+          name="question-author"
+          placeholder="名前"
+          v-model="author"
+        />
+        <button @click="addQuestionHandler">質問する</button>
       </div>
     </div>
     <div style="margin-top: 12px;">
@@ -51,9 +56,11 @@
 
 <script>
 import { Game } from "../../interfaces/Game";
+import { Question } from "../../interfaces/Question";
 
 export default {
   name: "QuestionerView",
+  model: { prop: "game", event: "update-game" },
   props: {
     game: { type: Game }
   },
@@ -66,7 +73,26 @@ export default {
     },
     isRejected(q) {
       return q.reply.type === "REJECT";
+    },
+    addQuestionHandler() {
+      const question = new Question().initData({
+        author: this.author,
+        text: this.text,
+        reply: null
+      });
+      this.game.questions.push(question);
+      this.$emit("update-game", this.game);
+      this.$emit("add-question", this.game);
+    },
+    flush() {
+      this.text = "";
     }
+  },
+  data() {
+    return {
+      text: "",
+      author: ""
+    };
   }
 };
 </script>

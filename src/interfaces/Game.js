@@ -28,8 +28,10 @@ export class Game {
     this.author = data.author;
     this.name = data.name;
     this.situation = data.situation;
-    this.questions = (data.questions || []).map(q => new Question().initData(q));
-    this.datetime = data.datetime;
+    this.questions = (data.questions || []).map(q =>
+      new Question().initData(q)
+    );
+    this.datetime = data.datetime || firebase.firestore.Timestamp.now();
     this.password = data.password;
     this.resolved = data.resolved;
     return this;

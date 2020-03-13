@@ -20,9 +20,10 @@ export class Question {
    * @param data {{author:String,text:String, datetime:Timestamp,reply:Object}}
    */
   initData(data) {
+    if (!data) return this;
     this.author = data.author;
     this.text = data.text;
-    this.datetime = data.datetime;
+    this.datetime = data.datetime || firebase.firestore.Timestamp.now();
     this.reply = new Reply().initData(data.reply);
     return this;
   }
@@ -37,7 +38,7 @@ export class Question {
       author: this.author || "",
       text: this.text || "",
       datetime: this.datetime || firebase.firestore.Timestamp.now(),
-      reply: this.reply || null
+      reply: this.reply ? this.reply.toObject() : null
     };
   }
 }
