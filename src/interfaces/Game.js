@@ -4,10 +4,10 @@ import { Question } from "./Question";
 
 export class Game {
   id;
-  answer = "";
   author = "";
   name = "";
   situation = "";
+  answer = "";
   /** {Question[]} */
   questions = [];
   datetime = null;
@@ -33,6 +33,7 @@ export class Game {
     );
     this.datetime = data.datetime || firebase.firestore.Timestamp.now();
     this.password = data.password;
+    this.answer = data.answer;
     this.resolved = data.resolved;
     return this;
   }

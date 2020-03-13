@@ -1,28 +1,33 @@
 <template>
   <div>
-    <div v-if="!organizer" class="row">
+    <div class="row">
       <div class="twelve columns">
-        <div class="u-pull-right">
+        <div v-if="!organizer" class="u-pull-right">
           <input name="organizer-password" type="password" v-model="password" />
           <button name="organizer-authorizer" @click="suOrganizerHandler">
             出題者モード
           </button>
           <button @click="organizer = true">CHEAT</button>
         </div>
+        <div v-if="organizer" class="u-pull-right">
+          <button @click="organizer = false">参加者モード</button>
+        </div>
         <h5>{{ name }}</h5>
       </div>
     </div>
-
-    <!-- 回答者モード -->
     <questioner-view
       ref="qView"
-      v-if="!organizer"
-      v-model="game"
-      @add-question="addQuestionHandler"
+      :game="game"
+      :display="!organizer"
+      @update-game="updateGameHandler"
     ></questioner-view>
-
-    <!-- 出題者モード-->
-    <organizer-view ref="oView" v-if="organizer" :game="game"></organizer-view>
+    <organizer-view
+      ref="oView"
+      :game="game"
+      :display="organizer"
+      @update-game="updateGameHandler"
+      @exit-organizer="organizer = false"
+    ></organizer-view>
   </div>
 </template>
 
@@ -51,12 +56,16 @@ export default {
     /**
      * @param game {Game}
      */
-    addQuestionHandler(game) {
+    async updateGameHandler(game) {
+      return this.updateGame(game);
+    },
+    async updateGame(game) {
       const gameRef = Game.getRef();
       gameRef
         .doc(this.gameId)
         .set(game.toObject())
         .then(() => {
+          this.game = game;
           this.$refs.qView.flush();
         })
         .catch(e => {

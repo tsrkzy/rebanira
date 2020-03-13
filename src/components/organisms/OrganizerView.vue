@@ -1,11 +1,12 @@
 <template>
-  <div v-if="game" class="row">
+  <div v-if="display && game" class="row">
     <div class="twelve columns">
       <h6>状況説明と設問</h6>
       <textarea
         name="situation-editor"
         v-model="game.situation"
         placeholder="ある男が、レストランでウミガメのスープを注文した。"
+        @change="situationChangeHandler"
       ></textarea>
     </div>
     <div class="twelve columns">
@@ -14,6 +15,7 @@
         name="answer-editor"
         v-model="game.answer"
         placeholder="あのとき飲んだスープはウミガメの味ではなかった"
+        @change="answerChangeHandler"
       ></textarea>
     </div>
     <h6>質問への回答</h6>
@@ -60,8 +62,18 @@ import { Game } from "../../interfaces/Game";
 
 export default {
   name: "OrganizerView",
+  model: { props: "game", event: "update-game" },
   props: {
-    game: { type: Game }
+    game: { type: Game },
+    display: { type: Boolean, require: true }
+  },
+  methods: {
+    situationChangeHandler() {
+      this.$emit("update-game", this.game);
+    },
+    answerChangeHandler() {
+      this.$emit("update-game", this.game);
+    }
   }
 };
 </script>

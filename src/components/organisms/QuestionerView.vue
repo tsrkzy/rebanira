@@ -1,10 +1,12 @@
 <template>
-  <div v-if="game" class="row">
+  <div v-if="display && game" class="row">
     <div class="twelve columns">
-      <p>{{ game.situation }}</p>
+      <h6>問題</h6>
+      <pre><code>{{ game.situation }}</code></pre>
     </div>
     <div v-if="game.resolved" class="twelve columns">
-      <p>{{ game.answer }}</p>
+      <h6>真相</h6>
+      <pre><code>{{ game.answer }}</code></pre>
     </div>
     <div class="twelve columns">
       <textarea name="question-text" v-model="text"></textarea>
@@ -60,9 +62,9 @@ import { Question } from "../../interfaces/Question";
 
 export default {
   name: "QuestionerView",
-  model: { prop: "game", event: "update-game" },
   props: {
-    game: { type: Game }
+    game: { type: Game },
+    display: { type: Boolean, require: true }
   },
   methods: {
     isTrue(q) {
@@ -82,7 +84,6 @@ export default {
       });
       this.game.questions.push(question);
       this.$emit("update-game", this.game);
-      this.$emit("add-question", this.game);
     },
     flush() {
       this.text = "";
