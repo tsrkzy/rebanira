@@ -18,6 +18,12 @@
         @change="answerChangeHandler"
       ></textarea>
     </div>
+    <div class="twelve columns">
+      <label>
+      <input type="checkbox" v-model="game.resolved" @change="resolvedChangeHandler">
+        <span>解決済みに設定し、答えを公開する</span>
+      </label>
+    </div>
     <organizer-question-list
       :questions="game.questions"
       @update-questions="updateQuestionsHandler"
@@ -45,6 +51,9 @@ export default {
       this.$emit("update-game", this.game);
     },
     updateQuestionsHandler() {
+      this.$emit("update-game", this.game);
+    },
+    resolvedChangeHandler() {
       this.$emit("update-game", this.game);
     }
   }
