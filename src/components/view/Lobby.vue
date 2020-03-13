@@ -2,8 +2,9 @@
   <div>
     <div :key="g.id" v-for="(g, i) in gameList" class="twelve columns">
       <h6>
-        <router-link to="/game/1">{{ g.name }}</router-link>
+        <router-link :to="`/game/${g.id}`">{{ g.name }}</router-link>
       </h6>
+      <p v-if="g.resolved">解決</p>
       <p>{{ g.situation }}</p>
       <hr v-if="i !== gameList.length - 1" />
     </div>
@@ -27,7 +28,8 @@ export default {
       const game = {
         id: i,
         name: `ウミガメのスープ ${i}`,
-        situation: DESC
+        situation: DESC,
+        resolved: !!(i % 2)
       };
       gameList.push(game);
     }

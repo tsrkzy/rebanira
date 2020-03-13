@@ -1,8 +1,8 @@
 <template>
   <div id="app" class="container">
-    <div class="row">
+    <div class="row" style="margin-bottom: 5.0rem;">
       <div class="twelve columns">
-        <h2>レバニラ</h2>
+        <h3>Rebanira</h3>
       </div>
     </div>
     <router-view></router-view>

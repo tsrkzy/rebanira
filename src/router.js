@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Router from "vue-router";
-import Lobby from "./components/Lobby";
+import Game from "./components/view/Game";
+import Lobby from "./components/view/Lobby";
 
 Vue.use(Router);
 
@@ -14,6 +15,10 @@ const router = new Router({
     {
       path: "/",
       component: Lobby
+    },
+    {
+      path: "/game/:game_id(\\d+)",
+      component: Game
     }
   ]
 });

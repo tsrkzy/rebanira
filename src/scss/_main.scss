@@ -2,5 +2,9 @@
 
 body{
   font-family: $body-font-family;
-  font-size: 0.8rem;
+  font-size: 1.2rem;
+}
+
+label{
+  font-weight: unset;
 }
