@@ -1,38 +1,31 @@
 <template>
   <div>
-    <div :key="g.id" v-for="(g, i) in gameList" class="twelve columns">
-      <h6>
-        <router-link :to="`/game/${g.id}`">{{ g.name }}</router-link>
-      </h6>
-      <p v-if="g.resolved">解決</p>
-      <p>{{ g.situation }}</p>
-      <hr v-if="i !== gameList.length - 1" />
-    </div>
+    <create-game-form></create-game-form>
+    <game-list :game-list="gameList"></game-list>
   </div>
 </template>
 
 <script>
-const DESC = `      ベルヌーイの定理（ベルヌーイのていり、英語: Bernoulli's
-      principle）またはベルヌーイの法則とは、非粘性流体（完全流体）のいくつかの特別な場合において、ベルヌーイの式と呼ばれる運動方程式の第一積分が存在することを述べた定理である。ベルヌーイの式は流体の速さと圧力と外力のポテンシャルの関係を記述する式で、力学的エネルギー保存則に相当する。この定理により流体の挙動を平易に表すことができる。ダニエル・ベルヌーイ（Daniel
-      Bernoulli
-      1700-1782）によって1738年に発表された。なお、運動方程式からのベルヌーイの定理の完全な誘導はその後の1752年にレオンハルト・オイラーにより行われた[1]。
-      ベルヌーイの定理は適用する非粘性流体の分類に応じて様々なタイプに分かれるが、大きく二つのタイプに分類できる。外力が保存力であること、バロトロピック性(密度が圧力のみの関数となる)という条件に加えて、
-      定常流という条件で成り立つ法則 (I) 渦なしの流れという条件で成り立つ法則
-      (II)
-      である。(I)の法則は流線上(正確にはベルヌーイ面上)でのみベルヌーイの式が成り立つという制限があるが、(II)の法則は全空間で式が成立する。`;
+import { Game } from "../../interfaces/Game";
+import CreateGameForm from "../organisms/CreateGameForm";
+import GameList from "../organisms/GameList";
+
 export default {
   name: "Lobby",
+  components: { CreateGameForm, GameList },
   created() {
     const gameList = [];
-    for (let i = 0; i < 10; i++) {
-      const game = {
-        id: i,
-        name: `ウミガメのスープ ${i}`,
-        situation: DESC,
-        resolved: !!(i % 2)
-      };
-      gameList.push(game);
-    }
+    const refGame = Game.getRef();
+    refGame
+      .orderBy("datetime", "desc")
+      .get()
+      .then(querySnapShot => {
+        querySnapShot.forEach(doc => {
+          const game = new Game(doc);
+          gameList.push(game);
+        });
+      });
+
     this.gameList = gameList;
   },
   data() {

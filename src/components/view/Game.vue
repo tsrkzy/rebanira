@@ -1,10 +1,12 @@
 <template>
   <div>
-    <div class="row">
+    <div v-if="!organizer" class="row">
       <div class="twelve columns">
         <div class="u-pull-right">
           <input name="organizer-password" type="password" />
-          <button @click="organizer = true">出題者モード</button>
+          <button name="organizer-authorizer" @click="organizer = true">
+            出題者モード
+          </button>
         </div>
         <h5>{{ name }}</h5>
       </div>
@@ -85,22 +87,14 @@
         <p style="margin-bottom: 0;">
           {{ q.text }}
         </p>
-        <p style="margin-bottom: 0;">{{ q.datetime }}, {{ q.author }}</p>
-        <p>
-          {{ q.reply.type }}&nbsp;-&nbsp;<a
-            @click="q.edit = !q.edit"
-            style="cursor: pointer;"
-            >[回答]</a
-          >
+        <p style="margin-bottom: 0;">
+          {{ q.datetime }}, {{ q.author }}&nbsp;
+          <a @click="q.edit = !q.edit" style="cursor: pointer;">{{
+            q.edit ? "[閉じる]" : "[回答を編集]"
+          }}</a>
         </p>
+        <p v-if="!q.edit">{{ q.reply.type }}&nbsp;-&nbsp;{{ q.reply.text }}</p>
         <div v-if="q.edit">
-          <div>
-            <textarea
-              name="reply-text-editor"
-              v-model="q.reply.text"
-              placeholder="(任意)"
-            ></textarea>
-          </div>
           <div>
             <label>
               <input type="radio" name="type" value="TRUE" />
@@ -114,6 +108,13 @@
               <input type="radio" name="type" value="REJECT" />
               <span>回答不可</span>
             </label>
+          </div>
+          <div>
+            <textarea
+              name="reply-text-editor"
+              v-model="q.reply.text"
+              placeholder="(任意)"
+            ></textarea>
           </div>
         </div>
       </div>
@@ -254,10 +255,6 @@ div.scroll-holder {
   border: 1px solid lightgray;
   padding: 1rem;
   border-radius: 0.4rem;
-}
-
-textarea {
-  width: 100%;
 }
 
 input[type="radio"] {
