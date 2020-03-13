@@ -14,11 +14,13 @@ const router = new Router({
   routes: [
     {
       path: "/",
-      component: Lobby
+      component: Lobby,
+      name: "lobby"
     },
     {
-      path: "/game/:game_id(\\d+)",
-      component: Game
+      path: "/game/:game_id([0-9a-zA-Z]+)",
+      component: Game,
+      name: "game"
     }
   ]
 });

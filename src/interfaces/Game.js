@@ -1,5 +1,6 @@
 import firebase from "firebase/app";
 import { dateFormat } from "../util/util";
+import { Question } from "./Question";
 
 export class Game {
   id;
@@ -7,8 +8,10 @@ export class Game {
   author = "";
   name = "";
   situation = "";
+  /** {Question[]} */
   questions = [];
   datetime = null;
+  password = null;
   resolved = false;
   constructor(doc) {
     if (!doc) {
@@ -25,9 +28,11 @@ export class Game {
     this.author = data.author;
     this.name = data.name;
     this.situation = data.situation;
-    this.questions = data.questions;
+    this.questions = (data.questions || []).map(q => new Question().initData(q));
     this.datetime = data.datetime;
+    this.password = data.password;
     this.resolved = data.resolved;
+    return this;
   }
 
   get date() {
@@ -36,16 +41,16 @@ export class Game {
 
   /** export to object for firebase */
   toObject() {
-    const o = {
+    return {
       answer: this.answer || "",
       author: this.author || "",
       name: this.name || "",
       situation: this.situation || "",
-      questions: this.questions || [],
+      questions: (this.questions || []).map(q => q.toObject()),
       datetime: this.datetime || firebase.firestore.Timestamp.now(),
+      password: this.password || null,
       resolved: this.resolved || false
     };
-    return o;
   }
 
   static getRef() {
