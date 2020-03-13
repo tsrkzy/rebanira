@@ -10,13 +10,13 @@
       }}</a>
     </p>
     <p v-if="!question.edit">
-      {{ question.reply.type }}&nbsp;-&nbsp;{{ question.reply.text }}
+      {{ question.reply.status }}&nbsp;-&nbsp;{{ question.reply.text }}
     </p>
     <div v-if="question.edit">
-      <reply-type-selector
-        v-model="question.reply.type"
+      <reply-status-selector
+        v-model="question.reply.status"
         @change-status="changeReplyStatusHandler"
-      ></reply-type-selector>
+      ></reply-status-selector>
       <div>
         <textarea
           name="reply-text-editor"
@@ -30,11 +30,11 @@
 
 <script>
 import { Question } from "../../interfaces/Question";
-import ReplyTypeSelector from "./ReplyTypeSelector";
+import ReplyStatusSelector from "./ReplyStatusSelector";
 
 export default {
   name: "QuestionEditor",
-  components: { ReplyTypeSelector },
+  components: { ReplyStatusSelector },
   props: {
     question: { type: Question, require: true }
   },

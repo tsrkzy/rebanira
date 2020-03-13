@@ -16,9 +16,9 @@
 </template>
 
 <script>
-const TRUE = "TRUE";
-const FALSE = "FALSE";
-const REJECT = "REJECT";
+import { Reply } from "../../interfaces/Reply";
+const { TRUE, FALSE, REJECT } = Reply;
+
 export default {
   name: "ReplyTypeSelector",
   model: { prop: "status", event: "change-status" },

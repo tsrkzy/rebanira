@@ -44,7 +44,12 @@
                 <span
                   v-else-if="isRejected(q)"
                   style="color: gray; font-weight: bold;"
-                  >回答なし.&nbsp;</span
+                  >回答不可.&nbsp;</span
+                >
+                <span
+                  v-else-if="isUndefined(q)"
+                  style="color: gray; font-weight: bold;"
+                  >回答待ち.&nbsp;</span
                 >
                 <span v-if="q.reply">{{ q.reply.text }}</span>
               </li>
@@ -68,13 +73,16 @@ export default {
   },
   methods: {
     isTrue(q) {
-      return q.reply.type === "TRUE";
+      return q.reply.isTrue();
     },
     isFalse(q) {
-      return q.reply.type === "FALSE";
+      return q.reply.isFalse();
     },
     isRejected(q) {
-      return q.reply.type === "REJECT";
+      return q.reply.isReject();
+    },
+    isUndefined(q) {
+      return q.reply.isUndefined();
     },
     addQuestionHandler() {
       const question = new Question().initData({
