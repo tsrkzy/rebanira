@@ -6,8 +6,10 @@ export class Question {
   author = "";
   text = "";
   hidden = false;
-  datetime = null;
-  reply = null;
+  /** {Timestamp} */
+  datetime;
+  /** {Reply} */
+  reply;
   constructor(doc) {
     if (!doc) {
       return this;
@@ -17,7 +19,7 @@ export class Question {
   }
 
   /**
-   * @param data {{author:String,text:String, datetime:Timestamp,reply:Object}}
+   * @param data {{author:String,text:String,hidden: Boolean, datetime:Timestamp,reply:Object}}
    */
   initData(data) {
     if (!data) return this;
@@ -28,7 +30,18 @@ export class Question {
     this.reply = new Reply().initData(data.reply);
     return this;
   }
-
+  isTrue() {
+    return this.reply && this.reply.isTrue();
+  }
+  isFalse() {
+    return this.reply && this.reply.isFalse();
+  }
+  isRejected() {
+    return this.reply && this.reply.isReject();
+  }
+  isUndefined() {
+    return this.reply && this.reply.isUndefined();
+  }
   get date() {
     return this.datetime ? dateFormat(this.datetime.toDate()) : "";
   }

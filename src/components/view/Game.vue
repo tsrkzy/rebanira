@@ -7,7 +7,9 @@
           <button name="organizer-authorizer" @click="suOrganizerHandler">
             出題者モード
           </button>
-          <button v-if="$store.state.debug" @click="organizer = true">CHEAT</button>
+          <button v-if="$store.state.debug" @click="organizer = true">
+            CHEAT
+          </button>
         </div>
         <div v-if="organizer" class="u-pull-right">
           <button @click="organizer = false">参加者モード</button>
