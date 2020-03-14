@@ -24,7 +24,7 @@
     </div>
     <div style="margin-top: 12px;">
       <div class="twelve columns scroll-holder">
-        <ul v-for="(q, i) in game.questions" :key="i">
+        <ul v-for="(q, i) in game.questions" :key="i" :style="questionStyles(q)">
           <li>
             {{ q.text }}&nbsp;<em>-&nbsp;{{ q.date }},&nbsp;{{ q.author }}</em>
           </li>
@@ -83,6 +83,11 @@ export default {
     },
     isUndefined(q) {
       return q.reply.isUndefined();
+    },
+    questionStyles(q) {
+      const styles = {};
+      q.hidden && (styles.display = "none");
+      return styles;
     },
     addQuestionHandler() {
       const question = new Question().initData({

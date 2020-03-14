@@ -5,6 +5,7 @@ import { Reply } from "./Reply";
 export class Question {
   author = "";
   text = "";
+  hidden = false;
   datetime = null;
   reply = null;
   constructor(doc) {
@@ -22,6 +23,7 @@ export class Question {
     if (!data) return this;
     this.author = data.author;
     this.text = data.text;
+    this.hidden = data.hidden;
     this.datetime = data.datetime || firebase.firestore.Timestamp.now();
     this.reply = new Reply().initData(data.reply);
     return this;
@@ -36,6 +38,7 @@ export class Question {
     return {
       author: this.author || "",
       text: this.text || "",
+      hidden: this.hidden || false,
       datetime: this.datetime || firebase.firestore.Timestamp.now(),
       reply: this.reply ? this.reply.toObject() : null
     };
