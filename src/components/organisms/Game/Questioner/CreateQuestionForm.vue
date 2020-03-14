@@ -21,7 +21,7 @@
 import { Question } from "../../../../interfaces/Question";
 
 export default {
-  name: "QuestionForm",
+  name: "CreateQuestionForm",
   created() {
     const { localStorage } = window;
     if (!localStorage) return false;

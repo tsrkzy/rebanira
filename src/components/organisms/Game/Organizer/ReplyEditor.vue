@@ -3,7 +3,7 @@
     <p style="margin-bottom: 0;">{{ questionText }}</p>
     <p style="margin-bottom: 0;margin-left: 1.0rem;">
       <span :style="{ color: question.labels.rgba }"
-        >[{{ question.labels.text }}]</span
+        >[{{ question.labels.text }}]:{{ question.id }}</span
       >
       <span>{{ question.reply.text }}</span>
     </p>
@@ -43,7 +43,7 @@ import { Question } from "../../../../interfaces/Question";
 import StatusSelector from "./StatusSelector";
 
 export default {
-  name: "QuestionEditor",
+  name: "ReplyEditor",
   components: { StatusSelector },
   props: {
     question: { type: Question, require: true }

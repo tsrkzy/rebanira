@@ -24,7 +24,7 @@ import { Reply } from "../../../../interfaces/Reply";
 const { TRUE, FALSE, REJECT, UNDEFINED } = Reply;
 
 export default {
-  name: "ReplyTypeSelector",
+  name: "StatusSelector",
   model: { prop: "status", event: "change-status" },
   props: {
     status: { type: String }

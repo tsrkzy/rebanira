@@ -1,7 +1,7 @@
 <template>
   <div :style="hiddenStyle">
     <div class="phrase">
-      <p>{{ question.text }}</p>
+      <p>{{ question.text }}, {{ question.id }}</p>
       <div class="reply">
         <p>
           <span

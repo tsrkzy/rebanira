@@ -1,7 +1,7 @@
 <template>
   <div class="twelve columns">
     <h6>質問への回答</h6>
-    <div v-for="(q, i) in questions" :key="i" class="twelve columns">
+    <div v-for="q in questions" :key="q.id" class="twelve columns">
       <reply-editor
         :question="q"
         @update-question="questionUpdateHandler"
@@ -13,7 +13,7 @@
 <script>
 import ReplyEditor from "./ReplyEditor";
 export default {
-  name: "OrganizerQuestionList",
+  name: "QuestionList",
   components: { ReplyEditor },
   props: {
     questions: { type: Array, require: true }

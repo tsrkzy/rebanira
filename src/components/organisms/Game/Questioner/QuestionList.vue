@@ -1,7 +1,7 @@
 <template>
   <div style="margin-top: 12px;">
     <div class="twelve columns scroll-holder">
-      <div v-for="(q, i) in questions" :key="i">
+      <div v-for="(q, i) in questions" :key="q.id">
         <question-row
           :question="q"
           :partition="i !== questions.length - 1"
@@ -14,7 +14,7 @@
 <script>
 import QuestionRow from "./QuestionRow";
 export default {
-  name: "QuestionerQuestionList",
+  name: "QuestionList",
   components: { QuestionRow },
   props: {
     questions: { type: Array, require: true }

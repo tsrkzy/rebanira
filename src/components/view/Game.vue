@@ -64,13 +64,15 @@ export default {
     this.connect();
   },
   beforeDestroy() {
-    this.unsubscribe();
-    this.unsubscribe = null;
+    this.gameUnsubscribe();
+    this.gameUnsubscribe = null;
+    this.questionsUnsubscribe();
+    this.questionsUnsubscribe = null;
   },
   methods: {
     connect() {
       const gameRef = Game.getRef();
-      this.unsubscribe = gameRef.doc(this.gameId).onSnapshot(
+      this.gameUnsubscribe = gameRef.doc(this.gameId).onSnapshot(
         doc => {
           this.game = new Game(doc);
         },
@@ -81,11 +83,13 @@ export default {
         }
       );
       const questionRef = Question.getRef();
-      questionRef
+      this.questionsUnsubscribe = questionRef
         .where("gameId", "==", this.gameId)
         .onSnapshot(querySnapShot => {
           const questions = [];
-          querySnapShot.docChanges().forEach(change => {
+          const changes = querySnapShot.docChanges();
+          for (let i = 0; i < changes.length; i++) {
+            const change = changes[i];
             const id = change.doc.id;
             console.log(id, change.type); // @DELETEME
             switch (change.type) {
@@ -105,7 +109,7 @@ export default {
                 break;
               }
             }
-          });
+          }
         });
     },
     /** @param game {Game} */
@@ -192,7 +196,8 @@ export default {
       questions: [],
       password: null,
       organizer: false,
-      unsubscribe: null
+      gameUnsubscribe: null,
+      questionsUnsubscribe: null
     };
   }
 };
