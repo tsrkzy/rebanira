@@ -3,6 +3,7 @@
 body{
   font-family: $body-font-family;
   font-size: 1.2rem;
+  line-height: 1.2;
 }
 
 label{
@@ -11,4 +12,24 @@ label{
 
 textarea {
   width: 100%;
+  resize: none;
+}
+
+p {
+  white-space: pre-wrap;
+}
+
+div.phrase {
+  p {
+    margin-bottom: 1rem;
+  }
+  div.reply {
+    margin-left: 1rem;
+    p > span {
+      &.reply.reply-status {
+        text-decoration: underline;
+        font-weight: bold;
+      }
+    }
+  }
 }

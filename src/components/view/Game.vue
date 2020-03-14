@@ -97,17 +97,4 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
-div.scroll-holder {
-  max-height: 400px;
-  overflow-y: scroll;
-  border: 1px solid lightgray;
-  padding: 1rem;
-  border-radius: 0.4rem;
-}
-
-input[type="radio"] {
-  margin-right: 1rem;
-  margin-bottom: 0;
-}
-</style>
+<style scoped lang="scss"></style>

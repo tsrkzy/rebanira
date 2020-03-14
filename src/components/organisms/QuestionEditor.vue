@@ -30,6 +30,7 @@
           name="reply-text-editor"
           v-model="question.reply.text"
           placeholder="(任意)"
+          @change="changeReplyTextHandler"
         ></textarea>
       </div>
     </div>
@@ -51,6 +52,9 @@ export default {
       this.$emit("update-question", this.question);
     },
     changeReplyStatusHandler() {
+      this.$emit("update-question", this.question);
+    },
+    changeReplyTextHandler() {
       this.$emit("update-question", this.question);
     }
   },

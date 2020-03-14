@@ -34,7 +34,7 @@ export default {
     };
   },
   methods: {
-    flush(){
+    flush() {
       this.text = "";
     },
     addQuestionHandler() {
@@ -47,7 +47,7 @@ export default {
     }
   },
   watch: {
-    author(author){
+    author(author) {
       const { localStorage } = window;
       if (!localStorage) return false;
       localStorage.setItem("questionAuthorName", author);

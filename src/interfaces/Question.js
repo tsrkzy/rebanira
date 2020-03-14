@@ -46,6 +46,20 @@ export class Question {
     return this.datetime ? dateFormat(this.datetime.toDate()) : "";
   }
 
+  get labels() {
+    if (this.isTrue()) {
+      return { rgba: "rgba(0, 128, 255, 1)", text: "Yes" };
+    } else if (this.isFalse()) {
+      return { rgba: "rgba(255, 120, 96, 1)", text: "No" };
+    } else if (this.isRejected()) {
+      return { rgba: "rgba(110 ,110 ,110,1 )", text: "回答なし" };
+    } else if (this.isUndefined()) {
+      return { rgba: "rgba(60 ,60 ,60,1 )", text: "未回答" };
+    } else {
+      return { rgba: "rgba(0 ,0 ,0,1 )", text: "" };
+    }
+  }
+
   /** export to object for firebase */
   toObject() {
     return {

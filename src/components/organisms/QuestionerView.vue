@@ -2,13 +2,16 @@
   <div v-if="display && game" class="row">
     <div class="twelve columns">
       <h6>問題</h6>
-      <pre><code>{{ game.situation }}</code></pre>
+      <p>{{ game.situation }}</p>
     </div>
     <div v-if="game.resolved" class="twelve columns">
       <h6>真相</h6>
-      <pre><code>{{ game.answer }}</code></pre>
+      <p>{{ game.answer }}</p>
     </div>
-    <question-form ref="qForm" @create-question="addQuestionHandler"></question-form>
+    <question-form
+      ref="qForm"
+      @create-question="addQuestionHandler"
+    ></question-form>
     <questioner-question-list
       :questions="game.questions"
     ></questioner-question-list>
@@ -35,9 +38,8 @@ export default {
     flush() {
       this.$refs.qForm.flush();
     }
-  },
+  }
 };
 </script>
 
-<style scoped lang="scss">
-</style>
+<style scoped lang="scss"></style>
