@@ -39,18 +39,19 @@ import QuestionerView from "../organisms/QuestionerView";
 export default {
   name: "Game",
   components: { OrganizerView, QuestionerView },
-  async created() {
+  created() {
     this.gameId = this.$route.params.game_id;
     if (!this.gameId) {
       this.$router.push({ path: "/game/not-found" });
     }
     const gameRef = Game.getRef();
-    return gameRef
-      .doc(this.gameId)
-      .get()
-      .then(doc => {
-        this.game = new Game(doc);
-      });
+    this.unsubscribe = gameRef.doc(this.gameId).onSnapshot(doc => {
+      this.game = new Game(doc);
+    });
+  },
+  beforeDestroy() {
+    this.unsubscribe();
+    this.unsubscribe = null;
   },
   methods: {
     /**
@@ -65,7 +66,6 @@ export default {
         .doc(this.gameId)
         .set(game.toObject())
         .then(() => {
-          this.game = game;
           this.$refs.qView.flush();
         })
         .catch(e => {

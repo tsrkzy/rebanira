@@ -5,14 +5,14 @@
     </p>
     <p style="margin-bottom: 0;">
       {{ question.date }}, {{ question.author }}&nbsp;
-      <a @click="question.edit = !question.edit" style="cursor: pointer;">{{
-        question.edit ? "[閉じる]" : "[回答を編集]"
+      <a @click="edit = !edit" style="cursor: pointer;">{{
+        edit ? "[閉じる]" : "[回答を編集]"
       }}</a>
     </p>
-    <p v-if="!question.edit">
+    <p v-if="!edit">
       {{ question.reply.status }}&nbsp;-&nbsp;{{ question.reply.text }}
     </p>
-    <div v-if="question.edit">
+    <div v-if="edit">
       <reply-status-selector
         v-model="question.reply.status"
         @change-status="changeReplyStatusHandler"
@@ -42,6 +42,11 @@ export default {
     changeReplyStatusHandler() {
       this.$emit("update-question", this.question);
     }
+  },
+  data() {
+    return {
+      edit: false
+    };
   }
 };
 </script>

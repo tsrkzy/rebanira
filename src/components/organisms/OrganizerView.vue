@@ -20,7 +20,11 @@
     </div>
     <div class="twelve columns">
       <label>
-      <input type="checkbox" v-model="game.resolved" @change="resolvedChangeHandler">
+        <input
+          type="checkbox"
+          v-model="game.resolved"
+          @change="resolvedChangeHandler"
+        />
         <span>解決済みに設定し、答えを公開する</span>
       </label>
     </div>

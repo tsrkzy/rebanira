@@ -7,7 +7,6 @@ export class Question {
   text = "";
   datetime = null;
   reply = null;
-  edit = false;
   constructor(doc) {
     if (!doc) {
       return this;

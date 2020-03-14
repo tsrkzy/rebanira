@@ -12,12 +12,16 @@
       <input type="radio" name="type" :value="REJECT" v-model="radioValue" />
       <span>回答不可</span>
     </label>
+    <label style="display: none;">
+      <input type="radio" name="type" :value="UNDEFINED" v-model="radioValue" />
+      <span>未回答</span>
+    </label>
   </div>
 </template>
 
 <script>
 import { Reply } from "../../interfaces/Reply";
-const { TRUE, FALSE, REJECT } = Reply;
+const { TRUE, FALSE, REJECT, UNDEFINED } = Reply;
 
 export default {
   name: "ReplyTypeSelector",
@@ -33,6 +37,7 @@ export default {
       TRUE,
       FALSE,
       REJECT,
+      UNDEFINED,
       radioValue: null
     };
   },
