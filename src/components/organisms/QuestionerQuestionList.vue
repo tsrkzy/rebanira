@@ -53,4 +53,18 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+ul {
+  margin-top: 0.8rem;
+  margin-bottom: 0;
+  list-style: none;
+
+  li {
+    margin: 0;
+
+    ul {
+      margin-top: 0;
+    }
+  }
+}
+</style>

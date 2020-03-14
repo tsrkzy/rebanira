@@ -22,6 +22,11 @@ import { Question } from "../../interfaces/Question";
 
 export default {
   name: "QuestionForm",
+  created() {
+    const { localStorage } = window;
+    if (!localStorage) return false;
+    this.author = localStorage.getItem("questionAuthorName") || "";
+  },
   data() {
     return {
       text: "",
@@ -29,6 +34,9 @@ export default {
     };
   },
   methods: {
+    flush(){
+      this.text = "";
+    },
     addQuestionHandler() {
       const question = new Question().initData({
         author: this.author,
@@ -36,6 +44,13 @@ export default {
         reply: null
       });
       this.$emit("create-question", question);
+    }
+  },
+  watch: {
+    author(author){
+      const { localStorage } = window;
+      if (!localStorage) return false;
+      localStorage.setItem("questionAuthorName", author);
     }
   }
 };

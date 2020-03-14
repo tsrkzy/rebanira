@@ -8,7 +8,7 @@
       <h6>真相</h6>
       <pre><code>{{ game.answer }}</code></pre>
     </div>
-    <question-form @create-question="addQuestionHandler"></question-form>
+    <question-form ref="qForm" @create-question="addQuestionHandler"></question-form>
     <questioner-question-list
       :questions="game.questions"
     ></questioner-question-list>
@@ -33,30 +33,11 @@ export default {
       this.$emit("update-game", this.game);
     },
     flush() {
-      this.text = "";
+      this.$refs.qForm.flush();
     }
   },
-  data() {
-    return {
-      text: "",
-      author: ""
-    };
-  }
 };
 </script>
 
 <style scoped lang="scss">
-ul {
-  margin-top: 0.8rem;
-  margin-bottom: 0;
-  list-style: none;
-
-  li {
-    margin: 0;
-
-    ul {
-      margin-top: 0;
-    }
-  }
-}
 </style>
