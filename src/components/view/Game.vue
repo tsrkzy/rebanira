@@ -22,7 +22,7 @@
         <h5>{{ name }}</h5>
       </div>
     </div>
-    <div class="row">
+    <div v-if="game && game.resolved" class="row">
       <div class="twelve columns">
         <p>解決済み</p>
       </div>
@@ -56,16 +56,26 @@ export default {
     if (!this.gameId) {
       this.$router.push({ path: "/game/not-found" });
     }
-    const gameRef = Game.getRef();
-    this.unsubscribe = gameRef.doc(this.gameId).onSnapshot(doc => {
-      this.game = new Game(doc);
-    });
+    this.connect();
   },
   beforeDestroy() {
     this.unsubscribe();
     this.unsubscribe = null;
   },
   methods: {
+    connect() {
+      const gameRef = Game.getRef();
+      this.unsubscribe = gameRef.doc(this.gameId).onSnapshot(
+        doc => {
+          this.game = new Game(doc);
+        },
+        e => {
+          console.error(e);
+          console.error("接続が切断されました。再接続します。");
+          this.connect();
+        }
+      );
+    },
     /**
      * @param game {Game}
      */
@@ -104,7 +114,8 @@ export default {
       gameId: null,
       game: null,
       password: null,
-      organizer: false
+      organizer: false,
+      unsubscribe: null
     };
   }
 };

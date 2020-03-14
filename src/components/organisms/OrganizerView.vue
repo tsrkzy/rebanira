@@ -5,7 +5,7 @@
       <textarea
         name="situation-editor"
         v-model="game.situation"
-        placeholder="ある男が、レストランでウミガメのスープを注文した。"
+        placeholder="問題を入力しましょう。"
         @change="situationChangeHandler"
       ></textarea>
     </div>
@@ -14,16 +14,16 @@
       <textarea
         name="answer-editor"
         v-model="game.answer"
-        placeholder="あのとき飲んだスープはウミガメの味ではなかった"
+        placeholder="答えを入力しましょう。解決までは公開されません。"
         @change="answerChangeHandler"
       ></textarea>
     </div>
     <div v-if="!game.resolved" class="twelve columns">
       <!-- 間違えて解決しちゃうとどっちらけなのでブラウザの自動補完OFF -->
-      <span
+      <p
         v-if="resolveInProgress"
-        v-text="'答えを公開したら取り消せません！'"
-      ></span>
+        v-text="'慎重に！解決すると答えが公開され、その操作は取り消せません！'"
+      ></p>
       <input
         v-if="resolveInProgress"
         type="text"
@@ -36,9 +36,9 @@
         v-if="resolveInProgress"
         @click="resolveExecuteHandler"
       >
-        答えを公開
+        答えを公開する
       </button>
-      <button v-else @click="resolveHandler">答えを公開</button>
+      <button v-else @click="resolveHandler">解決済みにする</button>
     </div>
     <organizer-question-list
       :questions="game.questions"
