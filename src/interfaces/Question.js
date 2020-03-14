@@ -3,6 +3,7 @@ import { dateFormat } from "../util/util";
 import { Reply } from "./Reply";
 
 export class Question {
+  id;
   author = "";
   text = "";
   hidden = false;
@@ -69,5 +70,10 @@ export class Question {
       datetime: this.datetime || firebase.firestore.Timestamp.now(),
       reply: this.reply ? this.reply.toObject() : null
     };
+  }
+
+  static getRef() {
+    const refQuestion = firebase.firestore().collection("question");
+    return refQuestion;
   }
 }

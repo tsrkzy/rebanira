@@ -45,6 +45,7 @@
 
 <script>
 import { Game } from "../../interfaces/Game";
+import { Question } from "../../interfaces/Question";
 import OrganizerView from "../organisms/OrganizerView";
 import QuestionerView from "../organisms/QuestionerView";
 
@@ -75,18 +76,58 @@ export default {
           this.connect();
         }
       );
+      const questionRef = Question.getRef();
+      questionRef
+        .where("gameId", "==", this.gameId)
+        .onSnapshot(querySnapShot => {
+          const questions = [];
+          querySnapShot.forEach(doc => {
+            questions.push(new Question(doc));
+          });
+          console.log(questions); // @DELETEME
+          this.questions = [];
+        });
     },
-    /**
-     * @param game {Game}
-     */
+    /** @param game {Game} */
     async updateGameHandler(game) {
       return this.updateGame(game);
     },
     async updateGame(game) {
       const gameRef = Game.getRef();
       gameRef
-        .doc(this.gameId)
+        .doc(game.id)
         .set(game.toObject())
+        .then(() => {
+          this.flush();
+        })
+        .catch(e => {
+          console.error(e);
+        });
+    },
+    async createQuestionHandler(data) {
+      const question = new Question();
+      question.initData({
+        author: data.author,
+        text: data.text,
+        hidden: data.hidden,
+        datetime: data.datetime,
+        reply: data.reply
+      });
+      const questionRef = Question.getRef();
+      questionRef.add(question.toObject()).then(doc => {
+        console.log("question added", doc);
+      });
+      this.create = false;
+    },
+    /** @param question {Question} */
+    async updateQuestionHandler(question) {
+      return this.updateQuestion(question);
+    },
+    async updateQuestion(question) {
+      const questionRef = Question.getRef();
+      questionRef
+        .doc(question.id)
+        .set(question.toObject())
         .then(() => {
           this.flush();
         })
@@ -113,6 +154,7 @@ export default {
     return {
       gameId: null,
       game: null,
+      questions: [],
       password: null,
       organizer: false,
       unsubscribe: null

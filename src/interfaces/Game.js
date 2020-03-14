@@ -1,6 +1,5 @@
 import firebase from "firebase/app";
 import { dateFormat } from "../util/util";
-import { Question } from "./Question";
 
 export class Game {
   id;
@@ -8,8 +7,6 @@ export class Game {
   name = "";
   situation = "";
   answer = "";
-  /** {Question[]} */
-  questions = [];
   datetime = null;
   password = null;
   resolved = false;
@@ -22,15 +19,12 @@ export class Game {
   }
 
   /**
-   * @param data {{author:String,name:String,situation:String,questions:Array,resolved: boolean}}
+   * @param data {{author:String,name:String,situation:String,resolved: boolean}}
    */
   initData(data) {
     this.author = data.author;
     this.name = data.name;
     this.situation = data.situation;
-    this.questions = (data.questions || []).map(q =>
-      new Question().initData(q)
-    );
     this.datetime = data.datetime || firebase.firestore.Timestamp.now();
     this.password = data.password;
     this.answer = data.answer;
@@ -49,7 +43,6 @@ export class Game {
       author: this.author || "",
       name: this.name || "",
       situation: this.situation || "",
-      questions: (this.questions || []).map(q => q.toObject()),
       datetime: this.datetime || firebase.firestore.Timestamp.now(),
       password: this.password || null,
       resolved: this.resolved || false
