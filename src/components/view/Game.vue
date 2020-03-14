@@ -85,26 +85,25 @@ export default {
       const questionRef = Question.getRef();
       this.questionsUnsubscribe = questionRef
         .where("gameId", "==", this.gameId)
+        .orderBy("datetime", "asc")
         .onSnapshot(querySnapShot => {
-          const questions = [];
           const changes = querySnapShot.docChanges();
           for (let i = 0; i < changes.length; i++) {
             const change = changes[i];
             const id = change.doc.id;
-            console.log(id, change.type); // @DELETEME
             switch (change.type) {
               case "added": {
                 this.questions.push(new Question(this.gameId, change.doc));
                 break;
               }
               case "modified": {
-                const index = questions.findIndex(q => q.id === id);
+                const index = this.questions.findIndex(q => q.id === id);
                 const q = new Question(this.gameId, change.doc);
                 this.questions.splice(index, 1, q);
                 break;
               }
               case "removed": {
-                const index = questions.findIndex(q => q.id === id);
+                const index = this.questions.findIndex(q => q.id === id);
                 this.questions.splice(index, 1);
                 break;
               }
@@ -143,11 +142,11 @@ export default {
         .add(question.toObject())
         .then(docRef => {
           return docRef.get().then(doc => {
-            console.log("追加済み", doc); // @DELETEME
+            console.log("質問を追加", doc);
           });
         })
         .catch(e => {
-          console.error(e); // @DELETEME
+          console.error(e);
         });
     },
     /** @param questions {Question[]} */

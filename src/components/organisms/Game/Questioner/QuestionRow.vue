@@ -1,7 +1,10 @@
 <template>
   <div :style="hiddenStyle">
     <div class="phrase">
-      <p>{{ question.text }}, {{ question.id }}</p>
+      <p>
+        {{ question.text
+        }}<span v-if="$store.state.debug">,{{ question.id }}</span>
+      </p>
       <div class="reply">
         <p>
           <span

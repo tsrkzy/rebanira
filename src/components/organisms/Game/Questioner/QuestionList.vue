@@ -1,10 +1,14 @@
 <template>
   <div style="margin-top: 12px;">
     <div class="twelve columns scroll-holder">
-      <div v-for="(q, i) in questions" :key="q.id">
+      <label>
+        <input type="checkbox" v-model="reverse" />
+        <span>新しい順で表示する</span>
+      </label>
+      <div v-for="(q, i) in questionList" :key="q.id">
         <question-row
           :question="q"
-          :partition="i !== questions.length - 1"
+          :partition="i !== questionList.length - 1"
         ></question-row>
       </div>
     </div>
@@ -18,6 +22,16 @@ export default {
   components: { QuestionRow },
   props: {
     questions: { type: Array, require: true }
+  },
+  computed: {
+    questionList() {
+      return this.reverse ? this.questions.slice().reverse() : this.questions;
+    }
+  },
+  data() {
+    return {
+      reverse: true
+    };
   }
 };
 </script>
