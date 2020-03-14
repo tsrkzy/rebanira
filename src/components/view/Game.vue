@@ -19,7 +19,8 @@
         <div v-if="organizer" class="u-pull-right">
           <button @click="organizer = false">参加者モード</button>
         </div>
-        <h5>{{ name }}</h5>
+        <h5 style="margin-bottom: 0;">{{ name }}</h5>
+        <a href="#" @click="clipMarkdownLink">clip markdown link</a>
       </div>
     </div>
     <div v-if="game && game.resolved" class="row">
@@ -110,6 +111,17 @@ export default {
             }
           }
         });
+    },
+    clipMarkdownLink() {
+      const name = this.name.replace(/([[]])/g, "\\$1");
+      const uri = location.href;
+      const markdown = `"${this.game.situation}" - [Rebanira | ${name}](${uri})`;
+      const textarea = document.createElement("TEXTAREA");
+      textarea.innerText = markdown;
+      document.body.appendChild(textarea);
+      textarea.select();
+      document.execCommand("copy");
+      textarea.remove();
     },
     /** @param game {Game} */
     async updateGameHandler(game) {
