@@ -4,6 +4,7 @@ import { Reply } from "./Reply";
 
 export class Question {
   id;
+  gameId;
   author = "";
   text = "";
   hidden = false;
@@ -11,7 +12,8 @@ export class Question {
   datetime;
   /** {Reply} */
   reply;
-  constructor(doc) {
+  constructor(gameId, doc) {
+    this.gameId = gameId;
     if (!doc) {
       return this;
     }
@@ -24,6 +26,7 @@ export class Question {
    */
   initData(data) {
     if (!data) return this;
+    this.gameId = data.gameId;
     this.author = data.author;
     this.text = data.text;
     this.hidden = data.hidden;
@@ -64,6 +67,7 @@ export class Question {
   /** export to object for firebase */
   toObject() {
     return {
+      gameId: this.gameId || "",
       author: this.author || "",
       text: this.text || "",
       hidden: this.hidden || false,

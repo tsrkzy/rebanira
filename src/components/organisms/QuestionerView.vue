@@ -13,9 +13,7 @@
       v-if="!game.resolved"
       @create-question="addQuestionHandler"
     ></question-form>
-    <questioner-question-list
-      :questions="game.questions"
-    ></questioner-question-list>
+    <questioner-question-list :questions="questions"></questioner-question-list>
   </div>
 </template>
 
@@ -29,12 +27,12 @@ export default {
   components: { QuestionerQuestionList, QuestionForm },
   props: {
     game: { type: Game },
+    questions: { type: Array },
     display: { type: Boolean, require: true }
   },
   methods: {
     addQuestionHandler(question) {
-      this.game.questions.push(question);
-      this.$emit("update-game", this.game);
+      this.$emit("add-question", question);
     },
     flush() {
       this.$refs.qForm && this.$refs.qForm.flush();

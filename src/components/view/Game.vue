@@ -30,14 +30,18 @@
     <questioner-view
       ref="qView"
       :game="game"
+      :questions="questions"
       :display="!organizer"
       @update-game="updateGameHandler"
+      @add-question="addQuestionHandler"
     ></questioner-view>
     <organizer-view
       ref="oView"
       :game="game"
+      :questions="questions"
       :display="organizer"
       @update-game="updateGameHandler"
+      @update-questions="updateQuestionListHandler"
       @exit-organizer="organizer = false"
     ></organizer-view>
   </div>
@@ -81,11 +85,27 @@ export default {
         .where("gameId", "==", this.gameId)
         .onSnapshot(querySnapShot => {
           const questions = [];
-          querySnapShot.forEach(doc => {
-            questions.push(new Question(doc));
+          querySnapShot.docChanges().forEach(change => {
+            const id = change.doc.id;
+            console.log(id, change.type); // @DELETEME
+            switch (change.type) {
+              case "added": {
+                this.questions.push(new Question(this.gameId, change.doc));
+                break;
+              }
+              case "modified": {
+                const index = questions.findIndex(q => q.id === id);
+                const q = new Question(this.gameId, change.doc);
+                this.questions.splice(index, 1, q);
+                break;
+              }
+              case "removed": {
+                const index = questions.findIndex(q => q.id === id);
+                this.questions.splice(index, 1);
+                break;
+              }
+            }
           });
-          console.log(questions); // @DELETEME
-          this.questions = [];
         });
     },
     /** @param game {Game} */
@@ -104,9 +124,10 @@ export default {
           console.error(e);
         });
     },
-    async createQuestionHandler(data) {
+    async addQuestionHandler(data) {
       const question = new Question();
       question.initData({
+        gameId: this.gameId,
         author: data.author,
         text: data.text,
         hidden: data.hidden,
@@ -114,10 +135,24 @@ export default {
         reply: data.reply
       });
       const questionRef = Question.getRef();
-      questionRef.add(question.toObject()).then(doc => {
-        console.log("question added", doc);
+      questionRef
+        .add(question.toObject())
+        .then(docRef => {
+          return docRef.get().then(doc => {
+            console.log("追加済み", doc); // @DELETEME
+          });
+        })
+        .catch(e => {
+          console.error(e); // @DELETEME
+        });
+    },
+    /** @param questions {Question[]} */
+    async updateQuestionListHandler(questions) {
+      const promiseList = [];
+      questions.forEach(q => {
+        promiseList.push(this.updateQuestionHandler(q));
       });
-      this.create = false;
+      return Promise.all(promiseList);
     },
     /** @param question {Question} */
     async updateQuestionHandler(question) {

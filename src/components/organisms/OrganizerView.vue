@@ -41,7 +41,7 @@
       <button v-else @click="resolveHandler">解決済みにする</button>
     </div>
     <organizer-question-list
-      :questions="game.questions"
+      :questions="questions"
       @update-questions="updateQuestionsHandler"
     ></organizer-question-list>
   </div>
@@ -57,6 +57,7 @@ export default {
   model: { props: "game", event: "update-game" },
   props: {
     game: { type: Game },
+    questions: { type: Array },
     display: { type: Boolean, require: true }
   },
   methods: {
@@ -67,10 +68,7 @@ export default {
       this.$emit("update-game", this.game);
     },
     updateQuestionsHandler() {
-      this.$emit("update-game", this.game);
-    },
-    resolvedChangeHandler() {
-      this.$emit("update-game", this.game);
+      this.$emit("update-questions", this.questions);
     },
     resolveHandler() {
       this.resolveInProgress = true;
