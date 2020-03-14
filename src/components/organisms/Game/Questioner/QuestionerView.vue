@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { Game } from "../../interfaces/Game";
+import { Game } from "../../../../interfaces/Game";
 import QuestionerQuestionList from "./QuestionerQuestionList";
 import QuestionForm from "./QuestionForm";
 

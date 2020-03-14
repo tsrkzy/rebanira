@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { Question } from "../../interfaces/Question";
+import { Question } from "../../../../interfaces/Question";
 
 export default {
   name: "QuestionForm",

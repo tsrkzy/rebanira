@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import { Game } from "../../interfaces/Game";
+import { Game } from "../../../../interfaces/Game";
 import OrganizerQuestionList from "./OrganizerQuestionList";
 
 export default {

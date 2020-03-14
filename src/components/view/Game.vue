@@ -50,8 +50,8 @@
 <script>
 import { Game } from "../../interfaces/Game";
 import { Question } from "../../interfaces/Question";
-import OrganizerView from "../organisms/OrganizerView";
-import QuestionerView from "../organisms/QuestionerView";
+import OrganizerView from "../organisms/Game/Organizer/OrganizerView";
+import QuestionerView from "../organisms/Game/Questioner/QuestionerView";
 
 export default {
   name: "Game",

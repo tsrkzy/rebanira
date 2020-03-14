@@ -39,7 +39,7 @@
 </template>
 
 <script>
-import { Question } from "../../interfaces/Question";
+import { Question } from "../../../../interfaces/Question";
 import ReplyStatusSelector from "./ReplyStatusSelector";
 
 export default {

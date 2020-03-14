@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { Reply } from "../../interfaces/Reply";
+import { Reply } from "../../../../interfaces/Reply";
 const { TRUE, FALSE, REJECT, UNDEFINED } = Reply;
 
 export default {
