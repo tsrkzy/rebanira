@@ -18,15 +18,19 @@
         @change="answerChangeHandler"
       ></textarea>
     </div>
-    <div class="twelve columns">
-      <label>
-        <input
-          type="checkbox"
-          v-model="game.resolved"
-          @change="resolvedChangeHandler"
-        />
-        <span>解決済みに設定し、答えを公開する</span>
-      </label>
+    <div v-if="!game.resolved" class="twelve columns">
+      <!-- 間違えて解決しちゃうとどっちらけなのでブラウザの自動補完OFF -->
+      <span v-if="resolveInProgress" v-text="'答えを公開したら取り消せません！'"></span>
+      <input
+        v-if="resolveInProgress"
+        type="password"
+        autocomplete="off"
+        v-model="resolvePassword"
+      />
+      <button class="danger" v-if="resolveInProgress" @click="resolveExecuteHandler">
+        答えを公開
+      </button>
+      <button v-else @click="resolveHandler">答えを公開</button>
     </div>
     <organizer-question-list
       :questions="game.questions"
@@ -59,7 +63,20 @@ export default {
     },
     resolvedChangeHandler() {
       this.$emit("update-game", this.game);
+    },
+    resolveHandler() {
+      this.resolveInProgress = true;
+    },
+    resolveExecuteHandler() {
+      this.game.resolved = true;
+      this.$emit("update-game", this.game);
     }
+  },
+  data() {
+    return {
+      resolveInProgress: false,
+      resolvePassword: ""
+    };
   }
 };
 </script>

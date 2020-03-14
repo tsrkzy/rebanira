@@ -17,6 +17,11 @@
         <h5>{{ name }}</h5>
       </div>
     </div>
+    <div class="row">
+      <div class="twelve columns">
+        <p>解決済み</p>
+      </div>
+    </div>
     <questioner-view
       ref="qView"
       :game="game"

@@ -4,15 +4,29 @@ body{
   font-family: $body-font-family;
   font-size: 1.2rem;
   line-height: 1.2;
+  color: #555555;
 }
 
 label{
   font-weight: unset;
 }
 
+input {
+  font-size: 1.0rem;
+}
+
 textarea {
+  font-size: $body-font-family;
   width: 100%;
   resize: none;
+}
+
+button {
+  font-weight: unset;
+  &.danger {
+    color: red;
+    border-color: red;
+  }
 }
 
 p {

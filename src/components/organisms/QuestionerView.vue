@@ -10,6 +10,7 @@
     </div>
     <question-form
       ref="qForm"
+      v-if="!game.resolved"
       @create-question="addQuestionHandler"
     ></question-form>
     <questioner-question-list
