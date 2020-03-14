@@ -3,7 +3,12 @@
     <div class="row">
       <div class="twelve columns">
         <div v-if="!organizer" class="u-pull-right">
-          <input name="organizer-password" type="password" v-model="password" />
+          <input
+            name="organizer-password"
+            type="text"
+            placeholder="パスワード"
+            v-model="password"
+          />
           <button name="organizer-authorizer" @click="suOrganizerHandler">
             出題者モード
           </button>
@@ -73,11 +78,14 @@ export default {
         .doc(this.gameId)
         .set(game.toObject())
         .then(() => {
-          this.$refs.qView.flush();
+          this.flush();
         })
         .catch(e => {
           console.error(e);
         });
+    },
+    flush() {
+      this.$refs.qView && this.$refs.qView.flush();
     },
     suOrganizerHandler() {
       if (this.game.password !== this.password) {

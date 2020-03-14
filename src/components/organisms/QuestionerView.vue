@@ -37,7 +37,7 @@ export default {
       this.$emit("update-game", this.game);
     },
     flush() {
-      this.$refs.qForm.flush();
+      this.$refs.qForm && this.$refs.qForm.flush();
     }
   }
 };

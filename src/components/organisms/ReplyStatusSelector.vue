@@ -43,10 +43,14 @@ export default {
   },
   watch: {
     radioValue(v) {
-      this.$emit("change-status", v);
+      this.$emit("change-status", v || Reply.UNDEFINED);
     }
   }
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+input {
+  margin-bottom: 0;
+}
+</style>

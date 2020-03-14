@@ -1,30 +1,17 @@
 <template>
   <div>
-    <p style="margin-bottom: 0;">
-      {{ question.text }}
+    <p style="margin-bottom: 0;">{{ questionText }}</p>
+    <p style="margin-bottom: 0;margin-left: 1.0rem;">
+      <span :style="{ color: question.labels.rgba }"
+        >[{{ question.labels.text }}]</span
+      >
+      <span>{{ question.reply.text }}</span>
     </p>
-    <p style="margin-bottom: 0;">
-      {{ question.date }}, {{ question.author }}&nbsp;
-      <a @click="edit = !edit" style="cursor: pointer;">{{
-        edit ? "[閉じる]" : "[回答を編集]"
-      }}</a>
-      <label>
-        <input
-          type="checkbox"
-          v-model="question.hidden"
-          @change="changeHiddenHandler"
-        />
-        <span>非表示にする</span>
-      </label>
-    </p>
-    <p v-if="!edit">
-      {{ question.reply.status }}&nbsp;-&nbsp;{{ question.reply.text }}
-    </p>
+    <reply-status-selector
+      v-model="question.reply.status"
+      @change-status="changeReplyStatusHandler"
+    ></reply-status-selector>
     <div v-if="edit">
-      <reply-status-selector
-        v-model="question.reply.status"
-        @change-status="changeReplyStatusHandler"
-      ></reply-status-selector>
       <div>
         <textarea
           name="reply-text-editor"
@@ -32,8 +19,22 @@
           placeholder="(任意)"
           @change="changeReplyTextHandler"
         ></textarea>
+        <label>
+          <input
+            type="checkbox"
+            v-model="question.hidden"
+            @change="changeHiddenHandler"
+          />
+          <span>非表示にする</span>
+        </label>
       </div>
     </div>
+    <p style="margin-bottom: 0;">
+      <a @click="edit = !edit" style="cursor: pointer;">{{
+        edit ? "[閉じる]" : "[詳細編集]"
+      }}</a>
+    </p>
+    <hr />
   </div>
 </template>
 
@@ -46,6 +47,11 @@ export default {
   components: { ReplyStatusSelector },
   props: {
     question: { type: Question, require: true }
+  },
+  computed: {
+    questionText() {
+      return `(${this.question.author}) ${this.question.text}`;
+    }
   },
   methods: {
     changeHiddenHandler() {
@@ -66,4 +72,17 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+textarea {
+  margin-bottom: 0.5rem;
+}
+
+input {
+  margin-bottom: 1rem;
+}
+
+hr {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+</style>

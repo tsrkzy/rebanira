@@ -39,6 +39,7 @@
           type="text"
           name="game-situation"
           v-model="password"
+          autocomplete="off"
           placeholder="rebanira"
           style="margin-bottom: 0;"
         />

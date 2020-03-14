@@ -20,14 +20,22 @@
     </div>
     <div v-if="!game.resolved" class="twelve columns">
       <!-- 間違えて解決しちゃうとどっちらけなのでブラウザの自動補完OFF -->
-      <span v-if="resolveInProgress" v-text="'答えを公開したら取り消せません！'"></span>
+      <span
+        v-if="resolveInProgress"
+        v-text="'答えを公開したら取り消せません！'"
+      ></span>
       <input
         v-if="resolveInProgress"
-        type="password"
+        type="text"
         autocomplete="off"
+        placeholder="パスワード"
         v-model="resolvePassword"
       />
-      <button class="danger" v-if="resolveInProgress" @click="resolveExecuteHandler">
+      <button
+        class="danger"
+        v-if="resolveInProgress"
+        @click="resolveExecuteHandler"
+      >
         答えを公開
       </button>
       <button v-else @click="resolveHandler">答えを公開</button>

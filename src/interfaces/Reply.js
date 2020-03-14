@@ -3,7 +3,7 @@ import { dateFormat } from "../util/util";
 
 export class Reply {
   text = "";
-  status = "";
+  status = Reply.UNDEFINED;
   datetime = "";
 
   static TRUE = "TRUE";
@@ -42,14 +42,14 @@ export class Reply {
     return this.status === Reply.REJECT;
   }
   isUndefined() {
-    return this.status === Reply.UNDEFINED;
+    return !this.isTrue() && !this.isFalse() && !this.isReject();
   }
 
   /** export to object for firebase */
   toObject() {
     return {
       text: this.text || "",
-      status: this.status || "",
+      status: this.status || Reply.UNDEFINED,
       datetime: this.datetime || firebase.firestore.Timestamp.now()
     };
   }
