@@ -40,20 +40,20 @@
       </button>
       <button v-else @click="resolveHandler">解決済みにする</button>
     </div>
-    <organizer-question-list
+    <question-list
       :questions="questions"
       @update-questions="updateQuestionsHandler"
-    ></organizer-question-list>
+    ></question-list>
   </div>
 </template>
 
 <script>
 import { Game } from "../../../../interfaces/Game";
-import OrganizerQuestionList from "./OrganizerQuestionList";
+import QuestionList from "./QuestionList";
 
 export default {
   name: "OrganizerView",
-  components: { OrganizerQuestionList },
+  components: { QuestionList },
   model: { props: "game", event: "update-game" },
   props: {
     game: { type: Game },

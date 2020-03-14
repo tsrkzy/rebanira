@@ -8,23 +8,23 @@
       <h6>真相</h6>
       <p>{{ game.answer }}</p>
     </div>
-    <question-form
+    <create-question-form
       ref="qForm"
       v-if="!game.resolved"
       @create-question="addQuestionHandler"
-    ></question-form>
-    <questioner-question-list :questions="questions"></questioner-question-list>
+    ></create-question-form>
+    <question-list :questions="questions"></question-list>
   </div>
 </template>
 
 <script>
 import { Game } from "../../../../interfaces/Game";
-import QuestionerQuestionList from "./QuestionerQuestionList";
-import QuestionForm from "./QuestionForm";
+import QuestionList from "./QuestionList";
+import CreateQuestionForm from "./CreateQuestionForm";
 
 export default {
   name: "QuestionerView",
-  components: { QuestionerQuestionList, QuestionForm },
+  components: { QuestionList, CreateQuestionForm },
   props: {
     game: { type: Game },
     questions: { type: Array },

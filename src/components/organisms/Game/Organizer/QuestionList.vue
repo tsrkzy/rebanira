@@ -2,19 +2,19 @@
   <div class="twelve columns">
     <h6>質問への回答</h6>
     <div v-for="(q, i) in questions" :key="i" class="twelve columns">
-      <question-editor
+      <reply-editor
         :question="q"
         @update-question="questionUpdateHandler"
-      ></question-editor>
+      ></reply-editor>
     </div>
   </div>
 </template>
 
 <script>
-import QuestionEditor from "./QuestionEditor";
+import ReplyEditor from "./ReplyEditor";
 export default {
   name: "OrganizerQuestionList",
-  components: { QuestionEditor },
+  components: { ReplyEditor },
   props: {
     questions: { type: Array, require: true }
   },

@@ -7,10 +7,10 @@
       >
       <span>{{ question.reply.text }}</span>
     </p>
-    <reply-status-selector
+    <status-selector
       v-model="question.reply.status"
       @change-status="changeReplyStatusHandler"
-    ></reply-status-selector>
+    ></status-selector>
     <div v-if="edit">
       <div>
         <textarea
@@ -40,11 +40,11 @@
 
 <script>
 import { Question } from "../../../../interfaces/Question";
-import ReplyStatusSelector from "./ReplyStatusSelector";
+import StatusSelector from "./StatusSelector";
 
 export default {
   name: "QuestionEditor",
-  components: { ReplyStatusSelector },
+  components: { StatusSelector },
   props: {
     question: { type: Question, require: true }
   },
