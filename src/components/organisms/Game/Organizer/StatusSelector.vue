@@ -1,7 +1,12 @@
 <template>
   <div>
     <label>
-      <input type="radio" :name="radioKey" :value="TRUE" v-model="radioValue" />
+      <input
+        type="radio"
+        :name="radioKey"
+        :value="TRUE"
+        v-model="radioValue"
+      />
       <span>{{ LABEL_TRUE }}</span>
     </label>
     <label>
@@ -55,7 +60,7 @@ export default {
     status: { type: String }
   },
   created() {
-    this.radioValue = status;
+    this.radioValue = this.status;
   },
   computed: {},
   data() {
