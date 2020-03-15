@@ -1,6 +1,5 @@
 <template>
-  <div class="twelve columns">
-    <h6>質問への回答</h6>
+  <div class="twelve columns mt-1">
     <label>
       <input type="checkbox" v-model="reverse" />
       <span>新しい順で表示する</span>

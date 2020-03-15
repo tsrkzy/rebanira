@@ -1,11 +1,20 @@
 <template>
   <div>
-    <p style="margin-bottom: 0;">{{ questionText }}</p>
-    <p style="margin-bottom: 0;margin-left: 1.0rem;">
-      <span :style="{ color: question.labels.rgba }"
+    <p style="margin-bottom: 0;">
+      <span class="question-text">{{ question.text }}</span>
+    </p>
+    <p style="margin-bottom: 0;">
+      <span class="question-author">posted by {{ question.author }}</span>
+    </p>
+    <p style="margin-bottom: 0;margin-left: 1.0rem;" v-if="$store.state.debug">
+      <span class="reply-state" :style="{ color: question.labels.rgba }"
         >[{{ question.labels.text }}]</span
-      ><span v-if="$store.state.debug">:{{ question.id }}</span>
-      <span>{{ question.reply.text }}</span>
+      >
+      <span class="question-id">:{{ question.id }}</span>
+    </p>
+
+    <p v-if="question.reply.text">
+      <span class="reply-text">{{ question.reply.text }}</span>
     </p>
     <status-selector
       v-model="question.reply.status"
@@ -50,7 +59,7 @@ export default {
   },
   computed: {
     questionText() {
-      return `(${this.question.author}) ${this.question.text}`;
+      return `${this.question.text} posted by ${this.question.author}`;
     }
   },
   methods: {
@@ -72,9 +81,16 @@ export default {
 };
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 textarea {
   margin-bottom: 0.5rem;
+}
+
+span {
+  &.question-author {
+    color: silver;
+    font-weight: 300;
+  }
 }
 
 input {

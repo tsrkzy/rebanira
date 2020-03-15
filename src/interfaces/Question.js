@@ -52,11 +52,11 @@ export class Question {
 
   get labels() {
     if (this.isTrue()) {
-      return { rgba: "rgba(0, 128, 255, 1)", text: "Yes" };
+      return { rgba: "rgba(0, 128, 255, 1)", text: "はい。" };
     } else if (this.isFalse()) {
-      return { rgba: "rgba(255, 120, 96, 1)", text: "No" };
+      return { rgba: "rgba(255, 120, 96, 1)", text: "いいえ。" };
     } else if (this.isRejected()) {
-      return { rgba: "rgba(110 ,110 ,110,1 )", text: "回答なし" };
+      return { rgba: "rgba(110 ,110 ,110,1 )", text: "回答不可" };
     } else if (this.isUndefined()) {
       return { rgba: "rgba(60 ,60 ,60,1 )", text: "未回答" };
     } else {

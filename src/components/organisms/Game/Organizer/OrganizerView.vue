@@ -1,49 +1,55 @@
 <template>
-  <div v-if="display && game" class="row">
-    <div class="twelve columns">
-      <h6>状況説明と設問</h6>
-      <textarea
-        name="situation-editor"
-        v-model="game.situation"
-        placeholder="問題を入力しましょう。"
-        @change="situationChangeHandler"
-      ></textarea>
+  <div v-if="display && game">
+    <div class="row pl-1">
+      <div class="twelve columns">
+        <h6>状況説明と設問</h6>
+        <textarea
+          name="situation-editor"
+          v-model="game.situation"
+          placeholder="問題を入力しましょう。"
+          @change="situationChangeHandler"
+        ></textarea>
+      </div>
+      <div class="twelve columns">
+        <h6>答え</h6>
+        <textarea
+          name="answer-editor"
+          v-model="game.answer"
+          placeholder="答えを入力しましょう。解決までは公開されません。"
+          @change="answerChangeHandler"
+        ></textarea>
+      </div>
+      <div v-if="!game.resolved" class="twelve columns">
+        <!-- 間違えて解決しちゃうとどっちらけなのでブラウザの自動補完OFF -->
+        <p
+          v-if="resolveInProgress"
+          v-text="
+            '慎重に！解決すると答えが公開され、その操作は取り消せません！'
+          "
+        ></p>
+        <input
+          v-if="resolveInProgress"
+          type="text"
+          autocomplete="off"
+          placeholder="パスワード"
+          v-model="resolvePassword"
+        />
+        <button
+          class="danger"
+          v-if="resolveInProgress"
+          @click="resolveExecuteHandler"
+        >
+          答えを公開する
+        </button>
+        <button v-else @click="resolveHandler">解決済みにする</button>
+      </div>
     </div>
-    <div class="twelve columns">
-      <h6>答え</h6>
-      <textarea
-        name="answer-editor"
-        v-model="game.answer"
-        placeholder="答えを入力しましょう。解決までは公開されません。"
-        @change="answerChangeHandler"
-      ></textarea>
+    <div class="row pl-2">
+        <question-list
+          :questions="questions"
+          @update-questions="updateQuestionsHandler"
+        ></question-list>
     </div>
-    <div v-if="!game.resolved" class="twelve columns">
-      <!-- 間違えて解決しちゃうとどっちらけなのでブラウザの自動補完OFF -->
-      <p
-        v-if="resolveInProgress"
-        v-text="'慎重に！解決すると答えが公開され、その操作は取り消せません！'"
-      ></p>
-      <input
-        v-if="resolveInProgress"
-        type="text"
-        autocomplete="off"
-        placeholder="パスワード"
-        v-model="resolvePassword"
-      />
-      <button
-        class="danger"
-        v-if="resolveInProgress"
-        @click="resolveExecuteHandler"
-      >
-        答えを公開する
-      </button>
-      <button v-else @click="resolveHandler">解決済みにする</button>
-    </div>
-    <question-list
-      :questions="questions"
-      @update-questions="updateQuestionsHandler"
-    ></question-list>
   </div>
 </template>
 

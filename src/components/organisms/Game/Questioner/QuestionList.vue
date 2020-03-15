@@ -1,5 +1,5 @@
 <template>
-  <div style="margin-top: 12px;">
+  <div>
     <div class="twelve columns scroll-holder">
       <label>
         <input type="checkbox" v-model="reverse" />
@@ -40,7 +40,6 @@ export default {
 div.scroll-holder {
   max-height: 400px;
   overflow-y: scroll;
-  padding: 1rem;
   border-bottom: 1px solid lightgray;
 }
 

@@ -40,7 +40,7 @@ export default {
     },
     replyStyles() {
       const q = this.question;
-      return { color: q.labels.rgba, fontWeight: "bold" };
+      return { color: q.labels.rgba };
     }
   }
 };

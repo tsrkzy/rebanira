@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="row">
+    <div class="row mb-2">
       <div class="twelve columns">
         <div v-if="!organizer" class="u-pull-right">
           <input
@@ -19,7 +19,7 @@
         <div v-if="organizer" class="u-pull-right">
           <button @click="organizer = false">参加者モード</button>
         </div>
-        <h5 style="margin-bottom: 0;">{{ name }}</h5>
+        <h5 class="mb-0">{{ name }}</h5>
         <a href="#" @click="clipMarkdownLink">clip markdown link</a>
       </div>
     </div>
@@ -115,7 +115,7 @@ export default {
     clipMarkdownLink() {
       const name = this.name.replace(/([[]])/g, "\\$1");
       const uri = location.href;
-      const markdown = `"${this.game.situation}" - [Rebanira | ${name}](${uri})`;
+      const markdown = `"${this.game.situation}" - [${name} | Rebanira:オンライン水平思考クイズセッション支援ツール](${uri})`;
       const textarea = document.createElement("TEXTAREA");
       textarea.innerText = markdown;
       document.body.appendChild(textarea);

@@ -1,13 +1,49 @@
 /* https://mdesign-works.com/blog/web/scss-partials-variables/ */
 
-body{
+body {
   font-family: $body-font-family;
+  font-weight: 300;
   font-size: 1.2rem;
   line-height: 1.2;
   color: #555555;
 }
 
-label{
+$units: 0, 1, 2, 3;
+@each $unit in $units {
+  .mb-#{$unit} {
+    margin-bottom: #{$unit}rem;
+  }
+  .mt-#{$unit} {
+    margin-top: #{$unit}rem;
+  }
+  .ml-#{$unit} {
+    margin-left: #{$unit}rem;
+  }
+  .pl-#{$unit} {
+    padding-left: #{$unit}rem;
+    border-left: #{$unit}px solid rgb(255-(10*$unit), 255-(10*$unit), 255);
+  }
+  .pr-#{$unit} {
+    padding-right: #{$unit}rem;
+  }
+  .px-#{$unit} {
+    padding-right: #{$unit}rem;
+    padding-left: #{$unit}rem;
+  }
+  .m-#{$unit} {
+    margin: #{$unit}rem;
+  }
+}
+
+h6 {
+  margin-bottom: 1rem;
+}
+
+hr {
+  border: dashed 0.5px lightgray;
+}
+
+label {
   font-weight: unset;
 }
 
@@ -23,6 +59,7 @@ textarea {
 
 button {
   font-weight: unset;
+
   &.danger {
     color: red;
     border-color: red;
@@ -30,19 +67,19 @@ button {
 }
 
 p {
-  white-space: pre-wrap;
+  white-space: pre-line;
 }
 
 div.phrase {
   p {
     margin-bottom: 1rem;
   }
+
   div.reply {
     margin-left: 1rem;
+
     p > span {
       &.reply.reply-status {
-        text-decoration: underline;
-        font-weight: bold;
       }
     }
   }
