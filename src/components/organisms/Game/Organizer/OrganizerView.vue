@@ -45,10 +45,10 @@
       </div>
     </div>
     <div class="row pl-2">
-        <question-list
-          :questions="questions"
-          @update-questions="updateQuestionsHandler"
-        ></question-list>
+      <question-list
+        :questions="questions"
+        @update-questions="updateQuestionsHandler"
+      ></question-list>
     </div>
   </div>
 </template>

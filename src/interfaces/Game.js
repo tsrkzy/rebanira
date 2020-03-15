@@ -19,7 +19,7 @@ export class Game {
   }
 
   /**
-   * @param data {{author:String,name:String,situation:String,resolved: boolean}}
+   * @param data {{author:String,name:String,situation:String,resolved: ?boolean}}
    */
   initData(data) {
     this.author = data.author;

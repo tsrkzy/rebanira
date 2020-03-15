@@ -18,7 +18,7 @@
       ></create-question-form>
     </div>
     <div class="row pl-2">
-        <question-list :questions="questions"></question-list>
+      <question-list :questions="questions"></question-list>
     </div>
   </div>
 </template>

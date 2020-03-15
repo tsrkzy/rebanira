@@ -72,12 +72,21 @@ export default {
   methods: {
     async createGameHandler() {
       const game = new Game();
-      game.initData({
+      const data = {
         author: this.author,
         name: this.name,
         situation: this.situation,
         password: this.password
-      });
+      };
+      if (
+        !data.author.trim() ||
+        !data.name.trim() ||
+        !data.situation.trim() ||
+        !data.password.trim()
+      ) {
+        return false;
+      }
+      game.initData(data);
       const gameRef = Game.getRef();
       gameRef.add(game.toObject()).then(doc => {
         this.$router.push(`/game/${doc.id}`);

@@ -141,6 +141,9 @@ export default {
     },
     async addQuestionHandler(data) {
       const question = new Question();
+      if (!data.text.trim() || !data.author.trim()) {
+        return false;
+      }
       question.initData({
         gameId: this.gameId,
         author: data.author,
