@@ -52,13 +52,13 @@ export class Question {
 
   get labels() {
     if (this.isTrue()) {
-      return { rgba: "rgba(0, 128, 255, 1)", text: "はい。" };
+      return { rgba: "rgba(0, 128, 255, 1)", text: Reply.LABEL_TRUE };
     } else if (this.isFalse()) {
-      return { rgba: "rgba(255, 120, 96, 1)", text: "いいえ。" };
+      return { rgba: "rgba(255, 120, 96, 1)", text: Reply.LABEL_FALSE };
     } else if (this.isRejected()) {
-      return { rgba: "rgba(110 ,110 ,110,1 )", text: "回答不可" };
+      return { rgba: "rgba(110 ,110 ,110,1 )", text: Reply.LABEL_REJECT };
     } else if (this.isUndefined()) {
-      return { rgba: "rgba(60 ,60 ,60,1 )", text: "未回答" };
+      return { rgba: "rgba(60 ,60 ,60,1 )", text: Reply.LABEL_UNDEFINED };
     } else {
       return { rgba: "rgba(0 ,0 ,0,1 )", text: "" };
     }

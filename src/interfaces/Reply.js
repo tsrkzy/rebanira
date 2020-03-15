@@ -10,6 +10,11 @@ export class Reply {
   static FALSE = "FALSE";
   static REJECT = "REJECT";
   static UNDEFINED = "UNDEFINED";
+
+  static LABEL_TRUE = "はい";
+  static LABEL_FALSE = "いいえ";
+  static LABEL_REJECT = "回答なし";
+  static LABEL_UNDEFINED = "未回答";
   constructor(doc) {
     if (!doc) {
       return this;

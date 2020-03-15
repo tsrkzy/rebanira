@@ -17,6 +17,7 @@
       <span class="reply-text">{{ question.reply.text }}</span>
     </p>
     <status-selector
+      :radio-key="question.id"
       v-model="question.reply.status"
       @change-status="changeReplyStatusHandler"
     ></status-selector>

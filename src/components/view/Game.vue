@@ -9,7 +9,11 @@
             placeholder="パスワード"
             v-model="password"
           />
-          <button name="organizer-authorizer" @click="suOrganizerHandler">
+          <button
+            :disabled="disable"
+            name="organizer-authorizer"
+            @click="suOrganizerHandler"
+          >
             出題者モード
           </button>
           <button v-if="$store.state.debug" @click="organizer = true">
@@ -115,7 +119,7 @@ export default {
     copyMarkdownLink() {
       const name = this.name.replace(/([[]])/g, "\\$1");
       const uri = location.href;
-      const markdown = `"${this.game.situation}" - [${name} | Rebanira:オンライン水平思考クイズセッション支援ツール](${uri})`;
+      const markdown = `["${name}" | Rebanira:オンライン水平思考クイズセッション支援ツール](${uri})`;
       const textarea = document.createElement("TEXTAREA");
       textarea.innerText = markdown;
       document.body.appendChild(textarea);
@@ -202,6 +206,9 @@ export default {
   computed: {
     name() {
       return this.game ? this.game.name : "";
+    },
+    disable() {
+      return !this.password.trim();
     }
   },
   data() {
@@ -209,7 +216,7 @@ export default {
       gameId: null,
       game: null,
       questions: [],
-      password: null,
+      password: "",
       organizer: false,
       gameUnsubscribe: null,
       questionsUnsubscribe: null

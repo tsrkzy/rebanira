@@ -47,7 +47,11 @@
           暗号化を行いません。重要なパスワードを使用しないでください。
         </p>
       </div>
-      <button name="create-new-game" @click="createGameHandler">
+      <button
+        :disabled="disable"
+        name="create-new-game"
+        @click="createGameHandler"
+      >
         作成する
       </button>
       <hr />
@@ -68,6 +72,16 @@ export default {
       author: "",
       password: ""
     };
+  },
+  computed: {
+    disable() {
+      return (
+        !this.name.trim() ||
+        !this.situation.trim() ||
+        !this.author.trim() ||
+        !this.password.trim()
+      );
+    }
   },
   methods: {
     async createGameHandler() {

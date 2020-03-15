@@ -15,7 +15,9 @@
           placeholder="名前"
           v-model="author"
         />
-        <button @click="addQuestionHandler">質問する</button>
+        <button :disabled="disable" @click="addQuestionHandler">
+          質問する
+        </button>
       </div>
     </div>
   </div>
@@ -36,6 +38,11 @@ export default {
       text: "",
       author: ""
     };
+  },
+  computed: {
+    disable() {
+      return !this.text.trim() || !this.author.trim();
+    }
   },
   methods: {
     flush() {
