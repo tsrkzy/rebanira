@@ -13,7 +13,7 @@
         <textarea
           name="game-name"
           v-model="name"
-          placeholder="ウミガメのスープ"
+          placeholder="例: ウミガメのスープ"
         ></textarea>
       </div>
       <div class="twelve columns">
@@ -21,7 +21,7 @@
         <textarea
           name="game-situation"
           v-model="situation"
-          placeholder="レストランを訪れ、ウミガメのスープを注文した男が自殺した。なぜだろう。"
+          placeholder="例: レストランを訪れ、ウミガメのスープを注文した男が自殺した。なぜだろう。"
         ></textarea>
       </div>
       <div class="twelve columns">

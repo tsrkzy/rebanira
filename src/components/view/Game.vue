@@ -20,7 +20,7 @@
           <button @click="organizer = false">参加者モード</button>
         </div>
         <h5 class="mb-0">{{ name }}</h5>
-        <a href="#" @click="clipMarkdownLink">clip markdown link</a>
+        <a href="#" @click="copyMarkdownLink">copy markdown link</a>
       </div>
     </div>
     <div v-if="game && game.resolved" class="row">
@@ -112,7 +112,7 @@ export default {
           }
         });
     },
-    clipMarkdownLink() {
+    copyMarkdownLink() {
       const name = this.name.replace(/([[]])/g, "\\$1");
       const uri = location.href;
       const markdown = `"${this.game.situation}" - [${name} | Rebanira:オンライン水平思考クイズセッション支援ツール](${uri})`;
@@ -157,6 +157,7 @@ export default {
         .add(question.toObject())
         .then(docRef => {
           return docRef.get().then(doc => {
+            this.$refs.qView && this.$refs.qView.flush();
             console.log("質問を追加", doc);
           });
         })

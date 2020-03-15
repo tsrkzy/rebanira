@@ -50,6 +50,9 @@ label {
 input {
   font-size: 1.0rem;
 }
+  ::placeholder{
+    color: lightgray;
+  }
 
 textarea {
   font-size: $body-font-family;
@@ -68,6 +71,30 @@ button {
 
 p {
   white-space: pre-line;
+
+  &.comment-out {
+    font-size: 0.8rem;
+    color: steelblue;
+  }
+
+  &.src-code {
+    font-size: 0.8rem;
+    color: gray;
+    span{
+      &.key1{
+        color: darkorange;
+        font-weight: 400;
+      }
+      &.key2{
+        color: rebeccapurple;
+      }
+    }
+    a {
+      text-decoration: none;
+      font-weight: 400;
+      color: darkgreen;
+    }
+  }
 }
 
 div.phrase {

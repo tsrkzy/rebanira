@@ -6,7 +6,7 @@
         <textarea
           name="situation-editor"
           v-model="game.situation"
-          placeholder="問題を入力しましょう。"
+          placeholder="問題文"
           @change="situationChangeHandler"
         ></textarea>
       </div>
@@ -15,7 +15,7 @@
         <textarea
           name="answer-editor"
           v-model="game.answer"
-          placeholder="答えを入力しましょう。解決までは公開されません。"
+          placeholder="答え (※解決までは公開されません)"
           @change="answerChangeHandler"
         ></textarea>
       </div>

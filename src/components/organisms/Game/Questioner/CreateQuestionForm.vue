@@ -1,7 +1,11 @@
 <template>
   <div>
     <div class="twelve columns">
-      <textarea name="question-text" v-model="text"></textarea>
+      <textarea
+        name="question-text"
+        placeholder="質問の本文"
+        v-model="text"
+      ></textarea>
     </div>
     <div class="twelve columns u-pull-right">
       <div class="u-pull-right">
